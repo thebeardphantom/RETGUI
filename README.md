@@ -37,7 +37,7 @@ private ToggleWidget _toggleWidget = new ToggleWidget()
     Label = "A Toggle"
 };
 
-private ButtonWidget _button1Widget = new ButtonWidget()
+private ButtonWidget _buttonWidget = new ButtonWidget()
 {
     Label = "Button 1"
 };
@@ -66,7 +66,7 @@ private void OnGUI()
     _rootGroup.Draw();
 }
 
-private void OnButton1Clicked()
+private void OnButtonClicked()
 {
     // Implicit value retrieval
     Debug.Log($"Int slider squared equals: {_intSlider * _intSlider}");

@@ -42,20 +42,21 @@ private ButtonWidget _button1Widget = new ButtonWidget()
     Label = "Button 1"
 };
 
-private ButtonWidget _button2Widget = new ButtonWidget()
+private IntSliderWidget _intSlider = new IntSliderWidget()
 {
-    Label = "Button 2"
+    Label = "Int Value",
+    MinValue = 5,
+    MaxValue = 50
 };
 
 private void OnEnable()
 {
-    _button1Widget.Clicked = OnButton1Clicked;
-    _button2Widget.Clicked = OnButton2Clicked;
+    _buttonWidget.Clicked = OnButtonClicked;
     _rootGroup = new VerticalElementGroup(
         _toggleWidget,
         new HorizontalElementGroup(
-            _button1Widget,
-            _button2Widget
+            _buttonWidget,
+            _intSlider
         )
     );
 }
@@ -67,11 +68,7 @@ private void OnGUI()
 
 private void OnButton1Clicked()
 {
-    Debug.Log("Clicked 1!");
-}
-
-private void OnButton2Clicked()
-{
-    Debug.Log("Clicked 2!");
+    // Implicit value retrieval
+    Debug.Log($"Int slider squared equals: {_intSlider * _intSlider}");
 }
 ```

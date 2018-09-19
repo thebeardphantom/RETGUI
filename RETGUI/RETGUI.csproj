@@ -70,4 +70,7 @@
     <Compile Include="Widgets\Widget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>python D:\PythonProjects\UnityPostBuildTask\UnityPostBuildTask\unity_postbuild.py -projectName $(SolutionName) -projectList $(SolutionDir)projects.txt -assembly $(TargetPath) --includeSymbols</PostBuildEvent>
+  </PropertyGroup>
 </Project>

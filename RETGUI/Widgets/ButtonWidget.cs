@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace BeardPhantom.RETGUI.Widgets
 {
@@ -9,16 +8,21 @@ namespace BeardPhantom.RETGUI.Widgets
     public class ButtonWidget : Widget
     {
         /// <summary>
-        /// Callback when button is clicked
+        /// Method signature for responding to button click events
         /// </summary>
-        public Action Clicked;
+        public delegate void ButtonClicked(ButtonWidget button, Event evt);
+
+        /// <summary>
+        /// Event fired when button is clicked
+        /// </summary>
+        public event ButtonClicked ButtonClickedEvent;
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
             if(GUI.Button(rect, Label, ActiveStyle))
             {
-                Clicked?.Invoke();
+                ButtonClickedEvent?.Invoke(this, Event.current);
             }
         }
 

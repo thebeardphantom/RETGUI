@@ -21,7 +21,8 @@ namespace BeardPhantom.RETGUI.Widgets
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
-            Value = EditorGUI.IntSlider(rect, Label, Value, MinValue, MaxValue);
+            var newValue = EditorGUI.IntSlider(rect, Label, Value, MinValue, MaxValue);
+            SetValue(newValue);
         }
 
         /// <inheritdoc />

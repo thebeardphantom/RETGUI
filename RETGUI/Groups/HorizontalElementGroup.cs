@@ -19,7 +19,7 @@ namespace BeardPhantom.RETGUI.Groups
         public HorizontalElementGroup(params Element[] elements) : base(elements) { }
 
         /// <inheritdoc />
-        protected override void DrawElementsInternal()
+        protected override void DrawInternal()
         {
             using(new EditorGUILayout.HorizontalScope(ActiveStyle))
             {

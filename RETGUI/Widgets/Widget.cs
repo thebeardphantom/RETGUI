@@ -18,12 +18,16 @@ namespace BeardPhantom.RETGUI.Widgets
         /// </summary>
         public string Label;
 
+        /// <summary>
+        /// Is there a label set?
+        /// </summary>
+        public bool HasLabel => !string.IsNullOrWhiteSpace(Label);
+
         /// <inheritdoc />
-        public override void Draw()
+        protected override void DrawInternal()
         {
-            var hasLabel = string.IsNullOrWhiteSpace(Label);
-            var rect = EditorGUILayout.GetControlRect(hasLabel, CalcHeight(), ActiveStyle);
-            Draw(rect);
+            var rect = EditorGUILayout.GetControlRect(HasLabel, CalcHeight(), ActiveStyle);
+            DrawInternal(rect);
         }
 
         /// <summary>
@@ -31,23 +35,7 @@ namespace BeardPhantom.RETGUI.Widgets
         /// </summary>
         public virtual float CalcHeight()
         {
-            return ActiveStyle.CalcSize(_defaultText).y;
+            return ActiveStyle.CalcSize(HasLabel ? new GUIContent(Label) : _defaultText).y;
         }
-
-        /// <summary>
-        /// Draws this widget inside a given rect
-        /// </summary>
-        public void Draw(Rect rect)
-        {
-            var enabled = GUI.enabled;
-            GUI.enabled = enabled && Enabled;
-            DrawInternal(rect);
-            GUI.enabled = enabled;
-        }
-
-        /// <summary>
-        /// Draw contents of widget in rect
-        /// </summary>
-        protected abstract void DrawInternal(Rect rect);
     }
 }

@@ -11,7 +11,8 @@ namespace BeardPhantom.RETGUI.Widgets
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
-            Value = EditorGUI.FloatField(rect, Label, Value, ActiveStyle);
+            var newValue = EditorGUI.FloatField(rect, Label, Value, ActiveStyle);
+            SetValue(newValue);
         }
     }
 }

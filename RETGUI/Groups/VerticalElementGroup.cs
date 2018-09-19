@@ -18,7 +18,7 @@ namespace BeardPhantom.RETGUI.Groups
         public VerticalElementGroup(params Element[] elements) : base(elements) { }
 
         /// <inheritdoc />
-        protected override void DrawElementsInternal()
+        protected override void DrawInternal()
         {
             using(new EditorGUILayout.VerticalScope(ActiveStyle))
             {

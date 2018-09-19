@@ -13,7 +13,7 @@ namespace BeardPhantom.RETGUI.Widgets
         protected override void DrawInternal(Rect rect)
         {
             var newValue = EditorGUI.EnumPopup(rect, Label, Value as Enum, ActiveStyle);
-            Value = (T) (object) newValue;
+            SetValue((T) (object) newValue);
         }
 
         /// <inheritdoc />

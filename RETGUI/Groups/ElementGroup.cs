@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace BeardPhantom.RETGUI.Groups
@@ -28,12 +29,37 @@ namespace BeardPhantom.RETGUI.Groups
         }
 
         /// <inheritdoc />
-        public override void Draw()
+        public override string ToString()
         {
-            var enabled = GUI.enabled;
-            GUI.enabled = enabled && Enabled;
-            DrawElementsInternal();
-            GUI.enabled = enabled;
+            var sb = new StringBuilder();
+            var depth = new Stack<int>();
+            var items = new Stack<Element>();
+            depth.Push(0);
+            items.Push(this);
+            while(items.Count > 0)
+            {
+                var depthVal = depth.Pop();
+                var current = items.Pop();
+                for(var i = 0; i < depthVal; i++)
+                {
+                    sb.Append('\t');
+                }
+                if(current is ElementGroup group)
+                {
+                    sb.AppendLine(group.GetBaseToString());
+                    for(var i = group.Elements.Count - 1; i >= 0; i--)
+                    {
+                        var element = group.Elements[i];
+                        depth.Push(depthVal + 1);
+                        items.Push(element);
+                    }
+                }
+                else
+                {
+                    sb.AppendLine(current.ToString());
+                }
+            }
+            return sb.ToString().Trim();
         }
 
         /// <summary>
@@ -41,7 +67,7 @@ namespace BeardPhantom.RETGUI.Groups
         /// </summary>
         public T FindElementById<T>(string id) where T : Element
         {
-            return (T)Elements.SingleOrDefault(element => element.Id == id);
+            return (T) Elements.SingleOrDefault(element => element.Id == id);
         }
 
         /// <summary>
@@ -64,14 +90,26 @@ namespace BeardPhantom.RETGUI.Groups
         }
 
         /// <inheritdoc />
+        protected override void DrawInternal(Rect rect)
+        {
+            using(new GUILayout.AreaScope(rect))
+            {
+                DrawInternal();
+            }
+        }
+
+        /// <inheritdoc />
         protected override GUIStyle GetDefaultStyle()
         {
             return GUIStyle.none;
         }
 
         /// <summary>
-        /// Draw all contained elements
+        /// Get base ToString value
         /// </summary>
-        protected abstract void DrawElementsInternal();
+        private string GetBaseToString()
+        {
+            return base.ToString();
+        }
     }
 }

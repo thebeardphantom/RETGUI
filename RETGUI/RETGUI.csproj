@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ColorSet.cs" />
     <Compile Include="Widgets\ButtonWidget.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Groups\ElementGroup.cs" />

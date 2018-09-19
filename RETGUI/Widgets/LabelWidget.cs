@@ -6,17 +6,32 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// Simple one to two label widget
     /// </summary>
-    public class LabelWidget : Widget
+    public class LabelWidget : ValueWidget<string>
     {
         /// <summary>
-        /// Optional secondary data
+        /// Is word wrapping enabled
         /// </summary>
-        public string Label2;
+        public bool WordWrap;
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
-            EditorGUI.LabelField(rect, Label, Label2, ActiveStyle);
+            var wrapping = ActiveStyle.wordWrap;
+            ActiveStyle.wordWrap = WordWrap;
+            if(HasLabel)
+            {
+                EditorGUI.LabelField(rect, Label, Value, ActiveStyle);
+            }
+            else
+            {
+                EditorGUI.LabelField(rect, Value, ActiveStyle);
+            }
+            ActiveStyle.wordWrap = wrapping;
+        }
+
+        public override float CalcHeight()
+        {
+            return ActiveStyle.CalcSize(new GUIContent(Value)).y;
         }
 
         /// <inheritdoc />

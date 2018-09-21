@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace BeardPhantom.RETGUI
@@ -17,11 +18,12 @@ namespace BeardPhantom.RETGUI
     public abstract class Element
     {
         /// <summary>
-        /// Globally enables/disables all element drawing
+        /// Event fired when change occurs in group
         /// </summary>
-        public static bool DrawingEnabled = true;
+        public event Action GUIChanged;
 
         /// <summary>
+        /// Queue of callbacks that will execute at the beginning of the next draw
         /// </summary>
         private readonly Queue<DrawCallback> _onDrawCallbacks = new Queue<DrawCallback>();
 
@@ -155,11 +157,6 @@ namespace BeardPhantom.RETGUI
                 callback?.Invoke(this);
             }
 
-            if(!DrawingEnabled)
-            {
-                return;
-            }
-
             // Store GUI state
             var cachedEnabled = GUI.enabled;
             var cachedColor = GUI.color;
@@ -170,13 +167,20 @@ namespace BeardPhantom.RETGUI
             GUI.backgroundColor = Colors.BackgroundColor;
             GUI.contentColor = Colors.ContentColor;
 
-            if (rect.HasValue)
+            using(var changeScope = GUIChanged == null ? null : new EditorGUI.ChangeCheckScope())
             {
-                DrawInternal(rect.Value);
-            }
-            else
-            {
-                DrawInternal();
+                if(rect.HasValue)
+                {
+                    DrawInternal(rect.Value);
+                }
+                else
+                {
+                    DrawInternal();
+                }
+                if(changeScope != null && changeScope.changed)
+                {
+                    GUIChanged.Invoke();
+                }
             }
 
             // Restore GUI state

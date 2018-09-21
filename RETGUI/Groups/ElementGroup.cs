@@ -15,15 +15,24 @@ namespace BeardPhantom.RETGUI.Groups
         /// </summary>
         public readonly List<Element> Elements = new List<Element>();
 
-        /// <summary>
-        /// A group with no elements
-        /// </summary>
+        /// <inheritdoc />
         protected ElementGroup() { }
+
+        /// <inheritdoc />
+        protected ElementGroup(DrawCallback initializer) : base(initializer) { }
 
         /// <summary>
         /// A group with elements to start
         /// </summary>
         protected ElementGroup(params Element[] elements)
+        {
+            Elements.AddRange(elements);
+        }
+
+        /// <summary>
+        /// A group with elements to start
+        /// </summary>
+        protected ElementGroup(DrawCallback initializer, params Element[] elements) : base(initializer)
         {
             Elements.AddRange(elements);
         }
@@ -46,7 +55,7 @@ namespace BeardPhantom.RETGUI.Groups
                 }
                 if(current is ElementGroup group)
                 {
-                    sb.AppendLine(group.GetBaseToString());
+                    sb.AppendLine(group.GetElementDebugString());
                     for(var i = group.Elements.Count - 1; i >= 0; i--)
                     {
                         var element = group.Elements[i];
@@ -99,17 +108,9 @@ namespace BeardPhantom.RETGUI.Groups
         }
 
         /// <inheritdoc />
-        protected override GUIStyle GetDefaultStyle()
+        protected override void OnInitialize()
         {
-            return GUIStyle.none;
-        }
-
-        /// <summary>
-        /// Get base ToString value
-        /// </summary>
-        private string GetBaseToString()
-        {
-            return base.ToString();
+            DefaultStyle = GUIStyle.none.Duplicate();
         }
     }
 }

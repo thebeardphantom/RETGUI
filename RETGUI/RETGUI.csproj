@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ColorSet.cs" />
+    <Compile Include="ElementUtility.cs" />
+    <Compile Include="Groups\ScrollElementGroup.cs" />
     <Compile Include="Widgets\ButtonWidget.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Groups\ElementGroup.cs" />
@@ -65,6 +67,8 @@
     <Compile Include="Widgets\LabelWidget.cs" />
     <Compile Include="Widgets\NumberFieldWidget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Widgets\TextAreaWidget.cs" />
+    <Compile Include="Widgets\TextFieldWidget.cs" />
     <Compile Include="Widgets\ToggleWidget.cs" />
     <Compile Include="Widgets\ValueWidget.cs" />
     <Compile Include="Groups\VerticalElementGroup.cs" />

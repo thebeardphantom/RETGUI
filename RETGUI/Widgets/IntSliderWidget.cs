@@ -19,16 +19,21 @@ namespace BeardPhantom.RETGUI.Widgets
         public int MaxValue;
 
         /// <inheritdoc />
+        public IntSliderWidget() { }
+
+        /// <inheritdoc />
+        public IntSliderWidget(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
             var newValue = EditorGUI.IntSlider(rect, Label, Value, MinValue, MaxValue);
             SetValue(newValue);
         }
 
-        /// <inheritdoc />
-        protected override GUIStyle GetDefaultStyle()
+        protected override void OnInitialize()
         {
-            return GUI.skin.horizontalSlider;
+            DefaultStyle = GUI.skin.horizontalSlider.Duplicate();
         }
     }
 }

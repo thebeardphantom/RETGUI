@@ -9,6 +9,12 @@ namespace BeardPhantom.RETGUI.Widgets
     public class FloatFieldWidget : NumberFieldWidget<float>
     {
         /// <inheritdoc />
+        public FloatFieldWidget() { }
+
+        /// <inheritdoc />
+        public FloatFieldWidget(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
             var newValue = EditorGUI.FloatField(rect, Label, Value, ActiveStyle);

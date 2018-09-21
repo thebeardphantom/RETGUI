@@ -24,11 +24,10 @@ namespace BeardPhantom.RETGUI.Widgets
         public bool HasLabel => !string.IsNullOrWhiteSpace(Label);
 
         /// <inheritdoc />
-        protected override void DrawInternal()
-        {
-            var rect = EditorGUILayout.GetControlRect(HasLabel, CalcHeight(), ActiveStyle);
-            DrawInternal(rect);
-        }
+        protected Widget(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
+        protected Widget() { }
 
         /// <summary>
         /// Calculates the height of this widget
@@ -36,6 +35,13 @@ namespace BeardPhantom.RETGUI.Widgets
         public virtual float CalcHeight()
         {
             return ActiveStyle.CalcSize(HasLabel ? new GUIContent(Label) : _defaultText).y;
+        }
+
+        /// <inheritdoc />
+        protected override void DrawInternal()
+        {
+            var rect = EditorGUILayout.GetControlRect(HasLabel, CalcHeight(), ActiveStyle);
+            DrawInternal(rect);
         }
     }
 }

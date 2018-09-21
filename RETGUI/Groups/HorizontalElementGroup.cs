@@ -7,16 +7,18 @@ namespace BeardPhantom.RETGUI.Groups
     /// </summary>
     public class HorizontalElementGroup : ElementGroup
     {
-        /// <summary>
-        /// A horizontal group with no elements
-        /// </summary>
+        /// <inheritdoc />
         public HorizontalElementGroup() { }
 
-        /// <summary>
-        /// A horizontal group with elements to start
-        /// </summary>
-        /// <param name="elements"></param>
+        /// <inheritdoc />
         public HorizontalElementGroup(params Element[] elements) : base(elements) { }
+
+        /// <inheritdoc />
+        public HorizontalElementGroup(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
+        public HorizontalElementGroup(DrawCallback initializer, params Element[] elements)
+            : base(initializer, elements) { }
 
         /// <inheritdoc />
         protected override void DrawInternal()

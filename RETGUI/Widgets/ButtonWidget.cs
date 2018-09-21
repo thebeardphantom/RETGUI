@@ -18,6 +18,12 @@ namespace BeardPhantom.RETGUI.Widgets
         public event ButtonClicked ButtonClickedEvent;
 
         /// <inheritdoc />
+        public ButtonWidget() { }
+
+        /// <inheritdoc />
+        public ButtonWidget(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
             if(GUI.Button(rect, Label, ActiveStyle))
@@ -27,9 +33,9 @@ namespace BeardPhantom.RETGUI.Widgets
         }
 
         /// <inheritdoc />
-        protected override GUIStyle GetDefaultStyle()
+        protected override void OnInitialize()
         {
-            return GUI.skin.button;
+            DefaultStyle = GUI.skin.button.Duplicate();
         }
     }
 }

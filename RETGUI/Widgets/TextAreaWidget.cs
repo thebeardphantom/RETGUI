@@ -4,27 +4,27 @@ using UnityEngine;
 namespace BeardPhantom.RETGUI.Widgets
 {
     /// <summary>
-    /// A simple toggle
+    /// A widget that shows a text area
     /// </summary>
-    public class ToggleWidget : ValueWidget<bool>
+    public class TextAreaWidget : ValueWidget<string>
     {
         /// <inheritdoc />
-        public ToggleWidget() { }
+        public TextAreaWidget() { }
 
         /// <inheritdoc />
-        public ToggleWidget(DrawCallback initializer) : base(initializer) { }
+        public TextAreaWidget(DrawCallback initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
-            var newValue = EditorGUI.Toggle(rect, Label, Value, ActiveStyle);
+            var newValue = EditorGUI.TextArea(rect, Value, ActiveStyle);
             SetValue(newValue);
         }
 
         /// <inheritdoc />
         protected override void OnInitialize()
         {
-            DefaultStyle = EditorStyles.toggle.Duplicate();
+            DefaultStyle = EditorStyles.textArea.Duplicate();
         }
     }
 }

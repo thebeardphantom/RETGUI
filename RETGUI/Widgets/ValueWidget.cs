@@ -21,6 +21,26 @@
         /// </summary>
         public T Value { get; private set; }
 
+        /// <inheritdoc />
+        protected ValueWidget() { }
+
+        /// <inheritdoc />
+        protected ValueWidget(DrawCallback initializer) : base(initializer) { }
+
+        /// <summary>
+        /// Implicitly convert to value
+        /// </summary>
+        public static implicit operator T(ValueWidget<T> widget)
+        {
+            return widget.Value;
+        }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return $"{base.ToString()} | Value:{Value}";
+        }
+
         /// <summary>
         /// Sets value, optionally firing update event
         /// </summary>
@@ -35,19 +55,6 @@
                     ValueChangedEvent?.Invoke(oldValue, value);
                 }
             }
-        }
-
-        /// <summary>
-        /// Implicitly convert to value
-        /// </summary>
-        public static implicit operator T(ValueWidget<T> widget)
-        {
-            return widget.Value;
-        }
-
-        public override string ToString()
-        {
-            return $"{base.ToString()} | Value:{Value}";
         }
     }
 }

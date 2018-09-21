@@ -10,6 +10,12 @@ namespace BeardPhantom.RETGUI.Widgets
     public class EnumDropdownWidget<T> : ValueWidget<T> where T : struct, IComparable, IFormattable, IConvertible
     {
         /// <inheritdoc />
+        public EnumDropdownWidget() { }
+
+        /// <inheritdoc />
+        public EnumDropdownWidget(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
         protected override void DrawInternal(Rect rect)
         {
             var newValue = EditorGUI.EnumPopup(rect, Label, Value as Enum, ActiveStyle);
@@ -17,9 +23,9 @@ namespace BeardPhantom.RETGUI.Widgets
         }
 
         /// <inheritdoc />
-        protected override GUIStyle GetDefaultStyle()
+        protected override void OnInitialize()
         {
-            return EditorStyles.popup;
+            DefaultStyle = EditorStyles.popup.Duplicate();
         }
     }
 }

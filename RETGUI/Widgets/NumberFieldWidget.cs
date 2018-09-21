@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
 namespace BeardPhantom.RETGUI.Widgets
 {
@@ -9,9 +8,15 @@ namespace BeardPhantom.RETGUI.Widgets
     public abstract class NumberFieldWidget<T> : ValueWidget<T> where T : struct
     {
         /// <inheritdoc />
-        protected override GUIStyle GetDefaultStyle()
+        protected NumberFieldWidget() { }
+
+        /// <inheritdoc />
+        protected NumberFieldWidget(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
+        protected override void OnInitialize()
         {
-            return EditorStyles.numberField;
+            DefaultStyle = EditorStyles.numberField.Duplicate();
         }
     }
 }

@@ -18,6 +18,13 @@ namespace BeardPhantom.RETGUI.Groups
         public VerticalElementGroup(params Element[] elements) : base(elements) { }
 
         /// <inheritdoc />
+        public VerticalElementGroup(DrawCallback initializer) : base(initializer) { }
+
+        /// <inheritdoc />
+        public VerticalElementGroup(DrawCallback initializer, params Element[] elements)
+            : base(initializer, elements) { }
+
+        /// <inheritdoc />
         protected override void DrawInternal()
         {
             using(new EditorGUILayout.VerticalScope(ActiveStyle))

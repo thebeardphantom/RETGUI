@@ -56,6 +56,9 @@
     <Compile Include="ColorSet.cs" />
     <Compile Include="ElementUtility.cs" />
     <Compile Include="Groups\ScrollElementGroup.cs" />
+    <Compile Include="List\WidgetList.cs" />
+    <Compile Include="List\WidgetListModel.cs" />
+    <Compile Include="List\WidgetListView.cs" />
     <Compile Include="Widgets\ButtonWidget.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="Groups\ElementGroup.cs" />

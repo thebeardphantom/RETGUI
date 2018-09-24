@@ -9,7 +9,7 @@ namespace BeardPhantom.RETGUI.List
     /// <summary>
     /// A list of widgets
     /// </summary>
-    public class WidgetList : Element
+    public class WidgetList : Element<WidgetList>
     {
         /// <summary>
         /// The underlying data model
@@ -55,7 +55,7 @@ namespace BeardPhantom.RETGUI.List
         }
 
         /// <inheritdoc />
-        public WidgetList(DrawCallback initializer) : base(initializer)
+        public WidgetList(DrawCallback<WidgetList> initializer) : base(initializer)
         {
             CreateModelView();
         }
@@ -63,7 +63,7 @@ namespace BeardPhantom.RETGUI.List
         /// <summary>
         /// Sets data on model
         /// </summary>
-        public void SetData(IList<Widget> widgets)
+        public void SetData(IList<IWidget> widgets)
         {
             _model.SetData(widgets);
             ReloadView();

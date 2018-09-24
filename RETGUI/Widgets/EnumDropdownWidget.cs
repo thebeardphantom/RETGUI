@@ -7,13 +7,13 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// Displays a dropdown to select an enum value of type <see cref="T" />
     /// </summary>
-    public class EnumDropdownWidget<T> : ValueWidget<T> where T : struct, IComparable, IFormattable, IConvertible
+    public class EnumDropdownWidget<T> : ValueWidget<EnumDropdownWidget<T>, T> where T : struct, IComparable, IFormattable, IConvertible
     {
         /// <inheritdoc />
         public EnumDropdownWidget() { }
 
         /// <inheritdoc />
-        public EnumDropdownWidget(DrawCallback initializer) : base(initializer) { }
+        public EnumDropdownWidget(DrawCallback<EnumDropdownWidget<T>> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

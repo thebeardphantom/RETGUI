@@ -6,7 +6,7 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// Displays an int slider with min/max values
     /// </summary>
-    public class IntSliderWidget : ValueWidget<int>
+    public class IntSliderWidget : ValueWidget<IntSliderWidget, int>
     {
         /// <summary>
         /// Minimum value
@@ -22,7 +22,7 @@ namespace BeardPhantom.RETGUI.Widgets
         public IntSliderWidget() { }
 
         /// <inheritdoc />
-        public IntSliderWidget(DrawCallback initializer) : base(initializer) { }
+        public IntSliderWidget(DrawCallback<IntSliderWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

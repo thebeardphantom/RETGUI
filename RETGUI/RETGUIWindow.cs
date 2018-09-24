@@ -10,7 +10,7 @@ namespace BeardPhantom.RETGUI
         /// <summary>
         /// The root element that is drawn
         /// </summary>
-        public Element RootElement { get; private set; }
+        public IElement RootElement { get; private set; }
 
         /// <summary>
         /// Rebuilds UI from scratch
@@ -23,7 +23,7 @@ namespace BeardPhantom.RETGUI
         /// <summary>
         /// Function responsible for building entire GUI, returning the root element.
         /// </summary>
-        protected abstract Element BuildRootElement();
+        protected abstract IElement BuildRootElement();
 
         /// <summary>
         /// Rebuilds UI on enable

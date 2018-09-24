@@ -6,13 +6,13 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// A simple float field
     /// </summary>
-    public class FloatFieldWidget : NumberFieldWidget<float>
+    public class FloatFieldWidget : NumberFieldWidget<FloatFieldWidget, float>
     {
         /// <inheritdoc />
         public FloatFieldWidget() { }
 
         /// <inheritdoc />
-        public FloatFieldWidget(DrawCallback initializer) : base(initializer) { }
+        public FloatFieldWidget(DrawCallback<FloatFieldWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

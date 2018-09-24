@@ -6,13 +6,13 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// A simple toggle
     /// </summary>
-    public class ToggleWidget : ValueWidget<bool>
+    public class ToggleWidget : ValueWidget<ToggleWidget, bool>
     {
         /// <inheritdoc />
         public ToggleWidget() { }
 
         /// <inheritdoc />
-        public ToggleWidget(DrawCallback initializer) : base(initializer) { }
+        public ToggleWidget(DrawCallback<ToggleWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

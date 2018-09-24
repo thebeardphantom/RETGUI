@@ -11,16 +11,16 @@ namespace BeardPhantom.RETGUI.List
     {
         /// <summary>
         /// </summary>
-        public Widget[] Data;
+        public IWidget[] Data;
 
         /// <summary>
         /// </summary>
-        private IList<Widget> _data;
+        private IList<IWidget> _data;
 
         /// <summary>
         /// </summary>
         /// <param name="data"></param>
-        public void SetData(IList<Widget> data)
+        public void SetData(IList<IWidget> data)
         {
             _data = data;
             Data = data.ToArray();

@@ -3,13 +3,12 @@
     /// <summary>
     /// A widget that manipulates a value
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public abstract class ValueWidget<T> : Widget
+    public abstract class ValueWidget<T, V> : Widget<T> where T : ValueWidget<T, V>
     {
         /// <summary>
         /// Function for responding to value changes
         /// </summary>
-        public delegate void ValueChanged(T oldValue, T newValue);
+        public delegate void ValueChanged(V oldValue, V newValue);
 
         /// <summary>
         /// Event fired when value is updated
@@ -19,18 +18,18 @@
         /// <summary>
         /// Underlying widget value
         /// </summary>
-        public T Value { get; private set; }
+        public V Value { get; private set; }
 
         /// <inheritdoc />
         protected ValueWidget() { }
 
         /// <inheritdoc />
-        protected ValueWidget(DrawCallback initializer) : base(initializer) { }
+        protected ValueWidget(DrawCallback<T> initializer) : base(initializer) { }
 
         /// <summary>
         /// Implicitly convert to value
         /// </summary>
-        public static implicit operator T(ValueWidget<T> widget)
+        public static implicit operator V(ValueWidget<T, V> widget)
         {
             return widget.Value;
         }
@@ -44,7 +43,7 @@
         /// <summary>
         /// Sets value, optionally firing update event
         /// </summary>
-        public void SetValue(T value, bool silent = false)
+        public void SetValue(V value, bool silent = false)
         {
             if(!Equals(Value, value))
             {

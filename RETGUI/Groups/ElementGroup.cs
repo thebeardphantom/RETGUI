@@ -8,23 +8,23 @@ namespace BeardPhantom.RETGUI.Groups
     /// <summary>
     /// A group of elements in a layout
     /// </summary>
-    public abstract class ElementGroup : Element
+    public abstract class ElementGroup<T> : Element<T> where T : Element<T>
     {
         /// <summary>
         /// All elements under this group
         /// </summary>
-        public readonly List<Element> Elements = new List<Element>();
+        public readonly List<IElement> Elements = new List<IElement>();
 
         /// <inheritdoc />
         protected ElementGroup() { }
 
         /// <inheritdoc />
-        protected ElementGroup(DrawCallback initializer) : base(initializer) { }
+        protected ElementGroup(DrawCallback<T> initializer) : base(initializer) { }
 
         /// <summary>
         /// A group with elements to start
         /// </summary>
-        protected ElementGroup(params Element[] elements)
+        protected ElementGroup(params IElement[] elements)
         {
             Elements.AddRange(elements);
         }
@@ -32,7 +32,7 @@ namespace BeardPhantom.RETGUI.Groups
         /// <summary>
         /// A group with elements to start
         /// </summary>
-        protected ElementGroup(DrawCallback initializer, params Element[] elements) : base(initializer)
+        protected ElementGroup(DrawCallback<T> initializer, params IElement[] elements) : base(initializer)
         {
             Elements.AddRange(elements);
         }
@@ -42,7 +42,7 @@ namespace BeardPhantom.RETGUI.Groups
         {
             var sb = new StringBuilder();
             var depth = new Stack<int>();
-            var items = new Stack<Element>();
+            var items = new Stack<IElement>();
             depth.Push(0);
             items.Push(this);
             while(items.Count > 0)
@@ -53,7 +53,7 @@ namespace BeardPhantom.RETGUI.Groups
                 {
                     sb.Append('\t');
                 }
-                if(current is ElementGroup group)
+                if(current is ElementGroup<T> group)
                 {
                     sb.AppendLine(group.GetElementDebugString());
                     for(var i = group.Elements.Count - 1; i >= 0; i--)
@@ -74,15 +74,15 @@ namespace BeardPhantom.RETGUI.Groups
         /// <summary>
         /// Finds an element by its id
         /// </summary>
-        public T FindElementById<T>(string id) where T : Element
+        public E FindElementById<E>(string id) where E : Element<T>
         {
-            return (T) Elements.SingleOrDefault(element => element.Id == id);
+            return (E) Elements.SingleOrDefault(element => element.Id == id);
         }
 
         /// <summary>
         /// Adds elements to group
         /// </summary>
-        public void AddElements(params Element[] elements)
+        public void AddElements(params IElement[] elements)
         {
             Elements.AddRange(elements);
         }
@@ -90,7 +90,7 @@ namespace BeardPhantom.RETGUI.Groups
         /// <summary>
         /// Removes elements from group
         /// </summary>
-        public void RemoveElements(params Element[] elements)
+        public void RemoveElements(params IElement[] elements)
         {
             foreach(var element in elements)
             {

@@ -5,7 +5,7 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// A clickable button
     /// </summary>
-    public class ButtonWidget : Widget
+    public class ButtonWidget : Widget<ButtonWidget>
     {
         /// <summary>
         /// Method signature for responding to button click events
@@ -21,7 +21,7 @@ namespace BeardPhantom.RETGUI.Widgets
         public ButtonWidget() { }
 
         /// <inheritdoc />
-        public ButtonWidget(DrawCallback initializer) : base(initializer) { }
+        public ButtonWidget(DrawCallback<ButtonWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

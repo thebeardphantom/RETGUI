@@ -6,13 +6,13 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// A widget that shows a text area
     /// </summary>
-    public class TextAreaWidget : ValueWidget<string>
+    public class TextAreaWidget : ValueWidget<TextAreaWidget, string>
     {
         /// <inheritdoc />
         public TextAreaWidget() { }
 
         /// <inheritdoc />
-        public TextAreaWidget(DrawCallback initializer) : base(initializer) { }
+        public TextAreaWidget(DrawCallback<TextAreaWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

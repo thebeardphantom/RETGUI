@@ -6,13 +6,13 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// A widget that shows a text field
     /// </summary>
-    public class TextFieldWidget : ValueWidget<string>
+    public class TextFieldWidget : ValueWidget<TextFieldWidget, string>
     {
         /// <inheritdoc />
         public TextFieldWidget() { }
 
         /// <inheritdoc />
-        public TextFieldWidget(DrawCallback initializer) : base(initializer) { }
+        public TextFieldWidget(DrawCallback<TextFieldWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         protected override void DrawInternal(Rect rect)

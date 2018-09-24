@@ -10,12 +10,12 @@ namespace BeardPhantom.RETGUI
     /// only be accessed during
     /// </summary>
     /// <param name="element"></param>
-    public delegate void DrawCallback(Element element);
+    public delegate void DrawCallback<in T>(T element) where T : Element<T>;
 
     /// <summary>
     /// The most basic unit of UI.
     /// </summary>
-    public abstract class Element
+    public abstract class Element<T> : IElement where T : Element<T>
     {
         /// <summary>
         /// Event fired when change occurs in group
@@ -25,12 +25,7 @@ namespace BeardPhantom.RETGUI
         /// <summary>
         /// Queue of callbacks that will execute at the beginning of the next draw
         /// </summary>
-        private readonly Queue<DrawCallback> _onDrawCallbacks = new Queue<DrawCallback>();
-
-        /// <summary>
-        /// Id for querying elements
-        /// </summary>
-        public string Id = Guid.NewGuid().ToString();
+        private readonly Queue<DrawCallback<T>> _onDrawCallbacks = new Queue<DrawCallback<T>>();
 
         /// <summary>
         /// Style to use for rendering
@@ -46,6 +41,9 @@ namespace BeardPhantom.RETGUI
         /// Whether GUI is enabled for this element
         /// </summary>
         public bool Enabled = true;
+
+        /// <inheritdoc />
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         /// <summary>
         /// The default style for this element
@@ -63,7 +61,7 @@ namespace BeardPhantom.RETGUI
         /// <summary>
         /// Create element with initializer function
         /// </summary>
-        protected Element(DrawCallback initializer)
+        protected Element(DrawCallback<T> initializer)
         {
             AddInitializerFunction();
             AddCallbackForNextDraw(initializer);
@@ -86,7 +84,7 @@ namespace BeardPhantom.RETGUI
         /// <summary>
         /// Adds a callback that will be executed once during next draw call
         /// </summary>
-        public void AddCallbackForNextDraw(DrawCallback onDraw)
+        public void AddCallbackForNextDraw(DrawCallback<T> onDraw)
         {
             _onDrawCallbacks.Enqueue(onDraw);
         }
@@ -99,17 +97,13 @@ namespace BeardPhantom.RETGUI
             return $"{GetType().Name} | ID:{Id} | Enabled:{Enabled}";
         }
 
-        /// <summary>
-        /// Draw using autolayout
-        /// </summary>
+        /// <inheritdoc />
         public void Draw()
         {
             ExecDraw(null);
         }
 
-        /// <summary>
-        /// Draw using rect
-        /// </summary>
+        /// <inheritdoc />
         public void Draw(Rect rect)
         {
             ExecDraw(rect);
@@ -154,7 +148,7 @@ namespace BeardPhantom.RETGUI
             while(_onDrawCallbacks.Count > 0)
             {
                 var callback = _onDrawCallbacks.Dequeue();
-                callback?.Invoke(this);
+                callback?.Invoke((T) this);
             }
 
             // Store GUI state

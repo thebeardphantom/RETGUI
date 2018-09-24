@@ -5,7 +5,7 @@ namespace BeardPhantom.RETGUI.Groups
     /// <summary>
     /// A vertical group of elements
     /// </summary>
-    public class VerticalElementGroup : ElementGroup
+    public class VerticalElementGroup : ElementGroup<VerticalElementGroup>
     {
         /// <summary>
         /// A group with no elements
@@ -15,13 +15,13 @@ namespace BeardPhantom.RETGUI.Groups
         /// <summary>
         /// A group with elements to start
         /// </summary>
-        public VerticalElementGroup(params Element[] elements) : base(elements) { }
+        public VerticalElementGroup(params IElement[] elements) : base(elements) { }
 
         /// <inheritdoc />
-        public VerticalElementGroup(DrawCallback initializer) : base(initializer) { }
+        public VerticalElementGroup(DrawCallback<VerticalElementGroup> initializer) : base(initializer) { }
 
         /// <inheritdoc />
-        public VerticalElementGroup(DrawCallback initializer, params Element[] elements)
+        public VerticalElementGroup(DrawCallback<VerticalElementGroup> initializer, params IElement[] elements)
             : base(initializer, elements) { }
 
         /// <inheritdoc />

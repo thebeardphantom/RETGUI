@@ -6,7 +6,7 @@ namespace BeardPhantom.RETGUI.Groups
     /// <summary>
     /// A group of elements in a scroll view
     /// </summary>
-    public class ScrollElementGroup : ElementGroup
+    public class ScrollElementGroup : ElementGroup<ScrollElementGroup>
     {
         /// <summary>
         /// Current position in scroll
@@ -27,13 +27,13 @@ namespace BeardPhantom.RETGUI.Groups
         public ScrollElementGroup() { }
 
         /// <inheritdoc />
-        public ScrollElementGroup(DrawCallback initializer) : base(initializer) { }
+        public ScrollElementGroup(DrawCallback<ScrollElementGroup> initializer) : base(initializer) { }
 
         /// <inheritdoc />
-        public ScrollElementGroup(params Element[] elements) : base(elements) { }
+        public ScrollElementGroup(params IElement[] elements) : base(elements) { }
 
         /// <inheritdoc />
-        public ScrollElementGroup(DrawCallback initializer, params Element[] elements) : base(initializer, elements) { }
+        public ScrollElementGroup(DrawCallback<ScrollElementGroup> initializer, params IElement[] elements) : base(initializer, elements) { }
 
         /// <inheritdoc />
         protected override void DrawInternal()

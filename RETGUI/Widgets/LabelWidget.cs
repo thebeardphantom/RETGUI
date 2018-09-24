@@ -6,13 +6,13 @@ namespace BeardPhantom.RETGUI.Widgets
     /// <summary>
     /// Simple one to two label widget
     /// </summary>
-    public class LabelWidget : ValueWidget<string>
+    public class LabelWidget : ValueWidget<LabelWidget, GUIContent>
     {
         /// <inheritdoc />
         public LabelWidget() { }
 
         /// <inheritdoc />
-        public LabelWidget(DrawCallback initializer) : base(initializer) { }
+        public LabelWidget(DrawCallback<LabelWidget> initializer) : base(initializer) { }
 
         /// <inheritdoc />
         public override float CalcHeight()
